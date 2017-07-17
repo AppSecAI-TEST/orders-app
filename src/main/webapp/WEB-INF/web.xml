@@ -26,7 +26,7 @@
 	<!-- Servlet mapping order - in this case just one  "mvc-dispatcher" -->
 	<servlet-mapping>
 		<servlet-name>mvc-dispatcher</servlet-name>
-		<url-pattern>/</url-pattern><!-- URL PATTERN FOR THIS SERVLET -->
+<!-- 		<url-pattern>/</url-pattern>URL PATTERN FOR THIS SERVLET -->
 		<url-pattern>*.html</url-pattern>
 		<url-pattern>*.htm</url-pattern>
 		<url-pattern>*.json</url-pattern>
