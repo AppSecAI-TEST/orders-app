@@ -1,3 +1,3 @@
 # orders-app
 
-Simple app for registering orders made by company's employees. 
+Simple app for registering company's internal orders. 
