@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <div class="container">
-	<form:form commandName="userDTO" cssClass="form-horizontal">
+	<form:form modelAttribute="userDTO" cssClass="form-horizontal">
 		<div class="form-group">
 			<label for="name">Name</label>
 			<form:input path="name" cssClass="form-control" />
@@ -18,6 +18,7 @@
 			<form:password path="password" cssClass="form-control" />
 			<!-- path corresponds to attributes name of object transfering data from the form -->
 		</div>
-		<button type="submit" class="btn btn-large btn-primary">Submit</button>
+		<div class="center-block"><button type="submit" class="btn btn-large btn-primary">Submit</button></div>
+		
 	</form:form>
 </div>

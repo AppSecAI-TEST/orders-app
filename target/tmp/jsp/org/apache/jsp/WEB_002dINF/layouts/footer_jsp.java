@@ -44,7 +44,7 @@ public final class footer_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\r\n");
       out.write("\r\n");
       out.write("    \r\n");
-      out.write("   &copy; Wojtek Toda;");
+      out.write("<div class=\"text-center\">&copy; Wojtek Toda</div>   ");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

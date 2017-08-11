@@ -2,4 +2,4 @@
     pageEncoding="UTF-8"%>
 
     
-   &copy; Wojtek Toda;
+<div class="text-center">&copy; Wojtek Toda</div>   

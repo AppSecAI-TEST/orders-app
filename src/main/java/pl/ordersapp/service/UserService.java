@@ -1,6 +1,7 @@
 package pl.ordersapp.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -8,13 +9,16 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import pl.ordersapp.entity.UserOrder;
 import pl.ordersapp.entity.Item;
+import pl.ordersapp.entity.Role;
 import pl.ordersapp.entity.User;
 import pl.ordersapp.repository.UserOrderRepository;
 import pl.ordersapp.repository.ItemRepository;
+import pl.ordersapp.repository.RoleRepository;
 import pl.ordersapp.repository.UserRepository;
 
 @Service
@@ -28,6 +32,9 @@ public class UserService {
 	
 	@Autowired
 	private ItemRepository itemRepository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
 	
 	@Transactional
 	public List<User> findAllUsers() {
@@ -55,6 +62,13 @@ public class UserService {
 	}
 
 	public void save(User userDTO) {
+		userDTO.setEnabled(true);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		userDTO.setPassword(encoder.encode(userDTO.getPassword()));
+		List<Role> userRoles = new ArrayList<Role>();
+		userRoles.add(roleRepository.findByName("ROLE_USER"));
+		userDTO.setRoles(userRoles);
+		
 		userRepository.save(userDTO);
 	}
 
