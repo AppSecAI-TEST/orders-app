@@ -1,0 +1,10 @@
+pl\ordersapp\repository\UserRepository.class
+pl\ordersapp\repository\RoleRepository.class
+pl\ordersapp\entity\User.class
+pl\ordersapp\service\UserService.class
+pl\ordersapp\entity\Item.class
+pl\ordersapp\repository\ItemRepository.class
+pl\ordersapp\entity\Role.class
+pl\ordersapp\controller\IndexController.class
+pl\ordersapp\controller\UserController.class
+pl\ordersapp\service\InitDbService.class

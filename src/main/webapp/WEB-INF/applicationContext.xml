@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+
+
+	<!-- obsluga -->
+	<context:component-scan base-package="pl.ordersapp">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- This will create dataSource -->
+	<jdbc:embedded-database type="HSQL" id="dataSource" />
+
+
+	<!-- EntityManager to manage cycle of life of all defined entities -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="packagesToScan" value="pl.ordersapp.entity" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop> <!-- creates tables based on entity names -->
+			</props>
+		</property>
+		<property name="persistenceProvider"> <!-- Class which deliver functionality of persistence -->
+			<bean class="org.hibernate.jpa.HibernatePersistenceProvider"></bean>
+		</property>
+	</bean>
+
+	<!-- Enable transactions -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- Entities manager ORM functionality -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<!-- Defining repositories - Container to proceed queries(save, delete etc.) 
+		, related to Data Access Objects (DAO) -->
+	<!-- For creating beans by Spring that implement Repositories interfaces -->
+	<jpa:repositories base-package="pl.ordersapp.repository"
+		entity-manager-factory-ref="entityManagerFactory"
+		transaction-manager-ref="transactionManager" />
+
+	<import resource="security.xml"/> <!-- adding Security configto app context -->
+
+</beans>
